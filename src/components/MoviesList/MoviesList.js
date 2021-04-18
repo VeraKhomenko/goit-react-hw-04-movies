@@ -1,32 +1,40 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import defaultImg from '../../views/default.jpg';
-const MoviesList = ({ films }) => {
+import style from './MoviesList.module.css';
+
+
+const MoviesList = ({ films, location }) => {
+
+	console.log(location.url);
 	return (
-		<ul>
-			{films.map(({ id, title, backdrop_path }) =>
-
-				<li key={id}>
-					<Link to={{ pathname: `/movies/${id}` }}>
-						<img
-							src={backdrop_path
-								? `https://image.tmdb.org/t/p/w92${backdrop_path}`
-								: defaultImg
-							}
-							alt={title}
-							width="120"
-							className=""
-						/>
-
-						<p>{title}</p>
+		<ul className={style.filmList}>
+			{films.map(({ id, title, poster_path }) =>
+				<li className={style.filmItem} key={id}>
+					<img
+						src={poster_path
+							? `https://image.tmdb.org/t/p/w92${poster_path}`
+							: defaultImg
+						}
+						alt={title}
+						className={style.filmImg}
+					/>
+					<Link
+						to={{
+							pathname: `/movies/${id}`,
+							state: { from: location },
+						}}
+					>
+						{/* // to={`${match.url}/${id}`} */}
+						<p className={style.filmText}>{title}</p>
 
 					</Link>
 				</li>
 			)
 			}
-		</ul>
+		</ul >
 	);
 };
 MoviesList.propTypes = {
@@ -38,4 +46,4 @@ MoviesList.propTypes = {
 	),
 };
 
-export default MoviesList
+export default withRouter(MoviesList);
