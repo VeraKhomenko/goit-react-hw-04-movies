@@ -3,9 +3,9 @@
   min-height: 650px;
   margin-left: auto;
   margin-right: auto;
-  padding: 25px;
+  /* padding: 25px; */
 
-  background-color: #dddbdb;
-
+  background-color: #131313;
+  color: #ffffff;
   text-align: left;
 }

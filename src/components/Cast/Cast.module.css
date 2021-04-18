@@ -1,0 +1,40 @@
+.list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 15px;
+  padding: 20px;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  width: calc((100% - 50px) / 5 + 10px);
+  margin-bottom: 30px;
+}
+.title {
+  font-size: 20px;
+}
+.titleSecond {
+  font-size: 16px;
+}
+.text {
+  font-size: 16px;
+
+  padding-bottom: 25px;
+  text-align: start;
+}
+.error {
+  color: #ff0000;
+  font-size: 25px;
+}
+.img {
+  width: calc((100% - 40px) / 5 + 150px);
+  object-fit: cover;
+}
+.thumb {
+  width: 187px;
+}

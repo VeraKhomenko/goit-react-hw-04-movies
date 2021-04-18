@@ -1,0 +1,27 @@
+.filmList {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.filmItem {
+  display: flex;
+  flex-direction: column;
+
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  width: calc((100% - 50px) / 5 + 10px);
+  margin-bottom: 30px;
+}
+.filmImg {
+  width: calc((100% - 40px) / 5 + 150px);
+  object-fit: cover;
+}
+.filmText {
+  padding-top: 10px;
+  color: #fff;
+}
+.filmText:focus,
+.filmText:hover {
+  color: palevioletred;
+}
