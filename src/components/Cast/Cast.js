@@ -29,26 +29,26 @@ class Cast extends Component {
 				this.setState({
 					casts: [ ...response.cast ],
 				});
+				// window.scrollTo({
+				// 	top: document.documentElement.scrollHeight,
+				// 	behavior: 'smooth',
+				// });
 			})
+			.catch(error => this.setState({ error }));
+
 
 	}
-	// Для плавной прокрутки
-	//         window.scrollTo({
-	//           top: document.documentElement.scrollHeight,
-	//           behavior: 'smooth',
-	//         });
-	//       })
-	//       .catch(error => this.setState({ error }));
+
 
 
 	render() {
 		const { casts, error } = this.state;
 
 		return (
-			<>
-				<ul className="">
+			<div>
+				<ul className={style.list}>
 					{casts.map(({ id, name, character, profile_path }) => (
-						<li key={id} className="">
+						<li key={id} className={style.item}>
 							<img
 								src={profile_path
 									? `https://image.tmdb.org/t/p/w92${profile_path}`
@@ -56,16 +56,22 @@ class Cast extends Component {
 								}
 								alt={name}
 								width="92"
-								className=""
+								className={style.img}
 							/>
-							<p>{name}</p>
-							<p>Character: {character}</p>
+							<div className={style.thumb}>
+								<h3 className={style.title}>{name}</h3>
+								<h4 className={style.titleSecond}>Character:</h4>
+								<p className={style.text}>{character}</p>
+
+							</div>
+
+
 						</li>
 					))}
 				</ul>
 
-				{ error && <h3 className="">{error.message}</h3>}
-			</>
+				{ error && <h3 className={style.error}>{error.message}</h3>}
+			</div>
 		);
 	}
 }

@@ -4,7 +4,7 @@ import SearchMovie from '../components/SearchMovie'
 import MoviesList from '../components/MoviesList'
 import '../styles/base.scss';
 import moviesApi from '../utils/moviesApi';
-
+import '../styles/base.scss'
 
 class MoviesSearch extends Component {
 	state = {
@@ -70,10 +70,11 @@ class MoviesSearch extends Component {
 		const { films, error } = this.state;
 		return (
 			<div>
-				<h1>страница поиска фильмов по ключевому слову</h1>
+				{/* <h1>страница поиска фильмов по ключевому слову</h1> */}
 				<SearchMovie onSubmit={this.onChangeQuery} />
-				<MoviesList films={films} />
-
+				<div className="selector__list">
+					<MoviesList films={films} />
+				</div>
 			</div>
 
 		)

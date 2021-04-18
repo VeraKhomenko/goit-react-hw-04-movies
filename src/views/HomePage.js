@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-
 import MoviesList from '../components/MoviesList'
 import moviesApi from '../utils/moviesApi';
 import PropTypes from 'prop-types';
+import '../styles/base.scss'
 
 class HomePage extends Component {
 	state = {
@@ -22,10 +22,10 @@ class HomePage extends Component {
 		// console.log(this.props.match.url)
 		const { films, error } = this.state;
 		return (
-			<div>
-				<h1>Home</h1>
+			<div className="selector__list">
+				<h1 className="selector__title">Trending today</h1>
 				<MoviesList films={films} />
-				{ error && <h3>{error.message}</h3>}
+				{ error && <h3 className="selector__error">{error.message}</h3>}
 			</div>
 		);
 	}

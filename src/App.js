@@ -1,65 +1,33 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import { Route, NavLink, Switch } from 'react-router-dom';
-import HomePage from './views/HomePage';
-import MoviesSearch from './views/MoviesSearch';
-import MovieDetailsPage from './views/MovieDetailsPage';
-import NotFoundView from './views/NotFoundView';
+import AppBar from './components/AppBar'
 import Container from './components/Container';
-import './styles/base.scss';
 
-// class App extends Component {
-//   state = {
-//     results: [],
-//     currentPage: 1,
-//     searchQuery: '',
+import routes from './routes';
 
-//     title: null,
-//     overview: string,
-//     poster_path: null,
-//     genres: [],
-//   };
-//   onChangeQuery = query => {
-//     this.setState({
-//       searchQuery: query,
-//       hits: [],
-//       currentPage: 1,
-//       error: null,
-//       isLoading: false,
-//       showModal: false,
-//     });
-//   };
+const MoviesSearch = lazy(() =>
+  import('./views/MoviesSearch' /* webpackChunkName: "movies-search" */)
+);
+const HomePage = lazy(() => import('./views/HomePage' /* webpackChunkName: "home-page" */));
+const MovieDetailsPage = lazy(() => import('./views/MovieDetailsPage' /* webpackChunkName: "movies-details-page" */));
+const NotFoundView = lazy(() => import('./views/NotFoundView' /* webpackChunkName: "not-fund-view" */));
 
-//   render() {
-
-//     return
 const App = () => (
   <Container>
-    <ul className="nav__list">
-      <li className="nav__item">
-        <NavLink
-          exact
-          to="/"
-          className="nav__link"
-          activeClassName="nav__link--active">Home</NavLink>
-      </li>
-      <li className="nav__item">
-        <NavLink to="/movies"
-          className="nav__link"
-          activeClassName="nav__link--active" >Movies</NavLink>
-      </li>
-    </ul>
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route exact path="/movies" component={MoviesSearch} />
-      <Route path="/movies/:movieId" component={MovieDetailsPage} />
+    <AppBar />
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <Switch>
+        <Route exact path={routes.home} component={HomePage} />
+        <Route exact path={routes.movies} component={MoviesSearch} />
+        <Route path={routes.movieDetails} component={MovieDetailsPage} />
 
 
-      <Route path="/movies/:movieId/cast" component={MovieDetailsPage} />
-      <Route path="/movies/:movieId/reviews" component={MovieDetailsPage} />
-      <Route component={NotFoundView} />
-    </Switch>
-
+        <Route path={routes.movieDetailsCast} component={MovieDetailsPage} />
+        <Route path={routes.movieDetailsReviews} component={MovieDetailsPage} />
+        <Route component={NotFoundView} />
+      </Switch>
+    </Suspense>
   </Container>
 );
 

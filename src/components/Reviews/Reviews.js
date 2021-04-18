@@ -28,16 +28,14 @@ class Reviews extends Component {
 				this.setState({
 					reviews: [ ...response.data.results ],
 				});
+				// window.scrollTo({
+				// 	top: document.documentElement.scrollHeight,
+				// 	behavior: 'smooth',
+				// });
 			})
-
+			.catch(error => this.setState({ error }));
 	}
-	// Для плавной прокрутки
-	//         window.scrollTo({
-	//           top: document.documentElement.scrollHeight,
-	//           behavior: 'smooth',
-	//         });
-	//       })
-	//       .catch(error => this.setState({ error }));
+
 
 
 	render() {
@@ -45,16 +43,16 @@ class Reviews extends Component {
 
 		return (
 			<>
-				<ul>
+				<ul className={style.list}>
 					{reviews.map(({ id, author, content }) => (
-						<li key={id}>
-							<h4> Author: {author}</h4>
-							<p>{content}</p>
+						<li className={style.item} key={id}>
+							<h4 className={style.title}> Author: {author}</h4>
+							<p className={style.text}>{content}</p>
 						</li>
 					))}
 				</ul>
 
-				{ error && <h3 className="">{error.message}</h3>}
+				{ error && <h3 className={style.error}>{error.message}</h3>}
 			</>
 		);
 	}

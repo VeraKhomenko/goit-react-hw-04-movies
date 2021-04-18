@@ -1,19 +1,24 @@
-import React, { Component, Suspense } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import moviesApi from '../utils/moviesApi';
 import Button from '../components/Button';
-import MoviesDetails from '../components/MoviesDetails'
-import Cast from '../components/Cast';
-import Reviews from '../components/Reviews';
+
 import routes from '../routes';
 import { Route, NavLink, Switch } from 'react-router-dom';
 import defaultImg from './default.jpg'
+import '../styles/base.scss'
+import MoviesDetailsGenres from '../components/MoviesDetailsGenres';
+
+const Cast = lazy(() =>
+	import('../components/Cast' /* webpackChunkName: "cast" */)
+);
+const Reviews = lazy(() =>
+	import('../components/Reviews' /* webpackChunkName: "reviews" */)
+);
 
 class MovieDetailsPage extends Component {
 	state = {
 		films: [],
 		genres: [],
-		// casts: [],
-		// authors: [],
 		error: null,
 	};
 
@@ -50,44 +55,48 @@ class MovieDetailsPage extends Component {
 
 		const { genres, error } = this.state;
 		return (
-			<section>
+			<section className="selector__details">
 				<Button onClick={this.handleClickButton} />
-				<h1>{title} {this.movieId}</h1>
-				<img
-					src={
-						poster_path
-							? `https://image.tmdb.org/t/p/w342/${poster_path}`
-							: defaultImg
-					}
-					alt={title} width="342" />
-				<p>User Score: {this.getPercent(vote_average)}%</p>
-				<h2>Overview</h2>
-				<p>{overview}</p>
-				<h3>Genres</h3>
-				<MoviesDetails genres={genres} />
+				<section className="selector">
+					<img width='250'
+						src={
+							poster_path
+								? `https://image.tmdb.org/t/p/w342/${poster_path}`
+								: defaultImg
+						}
+						alt={title} />
+					<div className="selector__blok">
+						<h1 className="selector__title">{title} {this.movieId}</h1>
+						<h2 className="selector__title--second">User Score:</h2>
+						<p className="selector__text">{this.getPercent(vote_average)}%</p>
+						<h2 className="selector__title--second">Overview</h2>
+						<p className="selector__text">{overview}</p>
+						<h3 className="selector__title--second">Genres</h3>
+						<MoviesDetailsGenres genres={genres} />
+					</div>
+				</section>
 				<div>
-					<h3>Additional information</h3>
+					<h3 className="additional__title">Additional information</h3>
 
-					<ul className="list-group">
-						<li className="list-group-item list-group-item-info">
+					<ul className="additional__list">
+						<li>
 							<NavLink
 								to={{
 									pathname: `${this.props.match.url}/cast`,
 									state: { ...this.props.location.state },
 								}}
-								className=""
-
+								className="additional__item"
 							>
 								Cast
                 </NavLink>
 						</li>
-						<li className="list-group-item list-group-item-info">
+						<li>
 							<NavLink
 								to={{
 									pathname: `${this.props.match.url}/reviews`,
 									state: { ...this.props.location.state },
 								}}
-								className=""
+								className="additional__item"
 
 							>
 								Reviews
